@@ -2,12 +2,12 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { VForm } from 'vuetify/components/VForm'
 
-import type { UserProperties } from '@/@fake-db/types'
+import type { CreateUserPayload } from '@/views/apps/user/useUserListStore'
 import { emailValidator, requiredValidator } from '@validators'
 
 interface Emit {
   (e: 'update:isDrawerOpen', value: boolean): void
-  (e: 'userData', value: UserProperties): void
+  (e: 'userData', value: CreateUserPayload): void
 }
 
 interface Props {
@@ -24,15 +24,12 @@ const isDialogVisible = computed({
 
 const isFormValid = ref(false)
 const refForm = ref<VForm>()
-const fullName = ref('')
-const userName = ref('')
+const firstName = ref('')
+const lastName = ref('')
+const username = ref('')
 const email = ref('')
-const company = ref('')
-const country = ref('')
-const contact = ref('')
-const role = ref()
-const plan = ref()
-const status = ref()
+const isActive = ref(true)
+const roleId = ref<number | null>(null)
 
 // 👉 drawer close
 const closeNavigationDrawer = () => {
@@ -48,17 +45,12 @@ const onSubmit = () => {
   refForm.value?.validate().then(({ valid }) => {
     if (valid) {
       emit('userData', {
-        id: 0,
-        fullName: fullName.value,
-        company: company.value,
-        role: role.value,
-        username: userName.value,
-        country: country.value,
-        contact: contact.value,
+        firstname: firstName.value,
+        lastname: lastName.value,
+        username: username.value,
         email: email.value,
-        currentPlan: plan.value,
-        status: status.value,
-        avatar: '',
+        isActive: isActive.value,
+        roleId: roleId.value || 1,
       })
       emit('update:isDrawerOpen', false)
       nextTick(() => {
@@ -95,23 +87,33 @@ const onSubmit = () => {
           @submit.prevent="onSubmit"
         >
           <VRow>
-              <!-- 👉 Full name -->
+              <!-- 👉 Firstname -->
             <VCol cols="12">
               <VTextField
-                v-model="fullName"
+                v-model="firstName"
                 :rules="[requiredValidator]"
-                label="Full Name"
-                placeholder="John Doe"
+                label="Firstname"
+                placeholder="Somchai"
+              />
+            </VCol>
+
+              <!-- 👉 Lastname -->
+            <VCol cols="12">
+              <VTextField
+                v-model="lastName"
+                :rules="[requiredValidator]"
+                label="Lastname"
+                placeholder="Jaidee"
               />
             </VCol>
 
               <!-- 👉 Username -->
             <VCol cols="12">
               <VTextField
-                v-model="userName"
+                v-model="username"
                 :rules="[requiredValidator]"
                 label="Username"
-                placeholder="johndoe"
+                placeholder="somchai.j"
               />
             </VCol>
 
@@ -121,71 +123,30 @@ const onSubmit = () => {
                 v-model="email"
                 :rules="[requiredValidator, emailValidator]"
                 label="Email"
-                placeholder="johndoe@email.com"
+                placeholder="somchai.j@gmail.com"
               />
             </VCol>
 
-              <!-- 👉 company -->
-            <VCol cols="12">
-              <VTextField
-                v-model="company"
-                :rules="[requiredValidator]"
-                label="Company"
-                placeholder="PixInvent"
-              />
-            </VCol>
-
-              <!-- 👉 Country -->
-            <VCol cols="12">
-              <VTextField
-                v-model="country"
-                :rules="[requiredValidator]"
-                label="Country"
-                placeholder="USA"
-              />
-            </VCol>
-
-              <!-- 👉 Contact -->
-            <VCol cols="12">
-              <VTextField
-                v-model="contact"
-                type="number"
-                :rules="[requiredValidator]"
-                label="Contact"
-                placeholder="+1-541-754-3010"
-              />
-            </VCol>
-
-              <!-- 👉 Role -->
+              <!-- 👉 Role ID -->
             <VCol cols="12">
               <VSelect
-                v-model="role"
-                label="Select Role"
+                v-model="roleId"
+                :rules="[requiredValidator]"
+                label="Role"
                 placeholder="Select Role"
-                :rules="[requiredValidator]"
-                :items="['Admin', 'Author', 'Editor', 'Maintainer', 'Subscriber']"
+                :items="[
+                  { title: 'Admin (1)', value: 1 },
+                  { title: 'User (2)', value: 2 },
+                ]"
               />
             </VCol>
 
-              <!-- 👉 Plan -->
+              <!-- 👉 Is Active -->
             <VCol cols="12">
-              <VSelect
-                v-model="plan"
-                label="Select Plan"
-                placeholder="Select Plan"
-                :rules="[requiredValidator]"
-                :items="['Basic', 'Company', 'Enterprise', 'Team']"
-              />
-            </VCol>
-
-              <!-- 👉 Status -->
-            <VCol cols="12">
-              <VSelect
-                v-model="status"
-                label="Select Status"
-                placeholder="Select Status"
-                :rules="[requiredValidator]"
-                :items="[{ title: 'Active', value: 'active' }, { title: 'Inactive', value: 'inactive' }, { title: 'Pending', value: 'pending' }]"
+              <VSwitch
+                v-model="isActive"
+                label="Active"
+                inset
               />
             </VCol>
 

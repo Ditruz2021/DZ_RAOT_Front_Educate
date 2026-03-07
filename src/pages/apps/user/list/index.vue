@@ -2,6 +2,7 @@
 import type { UserProperties } from '@/@fake-db/types'
 import { paginationMeta } from '@/@fake-db/utils'
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
+import type { CreateUserPayload, EditUserPayload } from '@/views/apps/user/useUserListStore'
 import { useUserListStore } from '@/views/apps/user/useUserListStore'
 import type { Options } from '@core/types'
 import { avatarText } from '@core/utils/formatters'
@@ -10,12 +11,18 @@ import { VDataTableServer } from 'vuetify/labs/VDataTable'
 // 👉 Store
 const userListStore = useUserListStore()
 const searchQuery = ref('')
+const appliedSearchQuery = ref('')
 const selectedRole = ref()
 const selectedPlan = ref()
 const selectedStatus = ref()
 const totalPage = ref(1)
 const totalUsers = ref(0)
 const users = ref<UserProperties[]>([])
+
+const roleIdToNameMap: Record<number, string> = {
+  1: 'admin',
+  2: 'user',
+}
 
 const options = ref<Options>({
   page: 1,
@@ -30,15 +37,14 @@ const headers = [
   { title: 'User', key: 'user' },
   { title: 'Email', key: 'email' },
   { title: 'Role', key: 'role' },
-  { title: 'Plan', key: 'plan' },
   { title: 'Status', key: 'status' },
   { title: 'Actions', key: 'actions', sortable: false },
 ]
 
 // 👉 Fetching users
 const fetchUsers = () => {
-  userListStore.fetchUsers({
-    q: searchQuery.value,
+  return userListStore.fetchUsers({
+    q: appliedSearchQuery.value,
     status: selectedStatus.value,
     plan: selectedPlan.value,
     role: selectedRole.value,
@@ -53,7 +59,25 @@ const fetchUsers = () => {
   })
 }
 
-watchEffect(fetchUsers)
+const onSearch = () => {
+  appliedSearchQuery.value = (searchQuery.value || '').trim()
+  options.value.page = 1
+  fetchUsers()
+}
+
+const onClearSearch = () => {
+  searchQuery.value = ''
+  appliedSearchQuery.value = ''
+  options.value.page = 1
+  fetchUsers()
+}
+
+onMounted(fetchUsers)
+
+watch(
+  () => [options.value.page, options.value.itemsPerPage],
+  fetchUsers,
+)
 
 const resolveUserRoleVariant = (role: string) => {
   const roleLowerCase = role.toLowerCase()
@@ -89,10 +113,14 @@ const isUserViewDialogVisible = ref(false)
 const isUserInfoEditDialogVisible = ref(false)
 
 type DialogUserData = UserProperties & {
-  taskDone: number
-  projectDone: number
+  taskDone: number | null
+  projectDone: number | null
   taxId: string
   language: string
+}
+
+type EditDialogSubmitPayload = Omit<EditUserPayload, 'roleId'> & {
+  roleId: number | null
 }
 
 const selectedUser = ref<DialogUserData>({
@@ -113,6 +141,16 @@ const selectedUser = ref<DialogUserData>({
   language: 'English',
 })
 
+const editUserData = ref<EditUserPayload>({
+  id: null,
+  firstname: '',
+  lastname: '',
+  username: '',
+  email: '',
+  isActive: true,
+  roleId: 1,
+})
+
 const setSelectedUser = (user: UserProperties) => {
   selectedUser.value = {
     ...user,
@@ -129,24 +167,120 @@ const openViewDialog = (user: UserProperties) => {
 }
 
 const openEditDialog = (user: UserProperties) => {
-  setSelectedUser(user)
-  isUserInfoEditDialogVisible.value = true
+  userListStore.fetchUser(user.id).then(response => {
+    editUserData.value = response.data.user || {
+      id: user.id,
+      firstname: user.fullName.split(' ')[0] || '',
+      lastname: user.fullName.split(' ').slice(1).join(' '),
+      username: user.username,
+      email: user.email,
+      isActive: user.status.toLowerCase() === 'active',
+      roleId: 5,
+    }
+    isUserInfoEditDialogVisible.value = true
+  }).catch(error => {
+    console.error(error)
+    editUserData.value = {
+      id: user.id,
+      firstname: user.fullName.split(' ')[0] || '',
+      lastname: user.fullName.split(' ').slice(1).join(' '),
+      username: user.username,
+      email: user.email,
+      isActive: user.status.toLowerCase() === 'active',
+      roleId: 5,
+    }
+    isUserInfoEditDialogVisible.value = true
+  })
+}
+
+const updateUser = async (userData: EditDialogSubmitPayload) => {
+  if (!userData.id)
+    return
+
+  try {
+    const roleId = userData.roleId || 5
+
+    await userListStore.updateUser(userData.id, {
+      firstname: userData.firstname,
+      lastname: userData.lastname,
+      username: userData.username,
+      email: userData.email,
+      isActive: userData.isActive,
+      roleId,
+    })
+
+    const userIndex = users.value.findIndex(user => user.id === userData.id)
+    if (userIndex !== -1) {
+      users.value[userIndex] = {
+        ...users.value[userIndex],
+        fullName: `${userData.firstname} ${userData.lastname}`.trim(),
+        username: userData.username,
+        email: userData.email,
+        status: userData.isActive ? 'active' : 'inactive',
+        role: roleIdToNameMap[roleId] || 'subscriber',
+      }
+    }
+
+    await fetchUsers()
+  }
+  catch (error) {
+    console.error(error)
+  }
 }
 
 // 👉 Add new user
-const addNewUser = (userData: UserProperties) => {
-  userListStore.addUser(userData)
+const addNewUser = async (userData: CreateUserPayload) => {
+  try {
+    const response = await userListStore.addUser(userData)
+    const createdUserId = (response as { data?: { userId?: number; id?: number } })?.data?.userId
+      || (response as { data?: { userId?: number; id?: number } })?.data?.id
+      || Date.now()
 
-  // refetch User
-  fetchUsers()
+    if (options.value.page === 1) {
+      users.value = [
+        {
+          id: createdUserId,
+          fullName: `${userData.firstname} ${userData.lastname}`.trim(),
+          company: '-',
+          role: roleIdToNameMap[userData.roleId] || 'subscriber',
+          username: userData.username,
+          country: '-',
+          contact: '-',
+          email: userData.email,
+          currentPlan: '-',
+          status: userData.isActive ? 'active' : 'inactive',
+          avatar: '',
+        },
+        ...users.value,
+      ].slice(0, options.value.itemsPerPage)
+      totalUsers.value += 1
+    }
+
+    await fetchUsers()
+  }
+  catch (error) {
+    console.error(error)
+  }
 }
 
 // 👉 Delete user
-const deleteUser = (id: number) => {
-  userListStore.deleteUser(id)
+const deleteUser = async (id: number) => {
+  try {
+    await userListStore.deleteUser(id)
 
-  // refetch User
-  fetchUsers()
+    const previousLength = users.value.length
+    users.value = users.value.filter(user => user.id !== id)
+    if (users.value.length < previousLength)
+      totalUsers.value = Math.max(0, totalUsers.value - 1)
+
+    if (users.value.length === 0 && options.value.page > 1)
+      options.value.page -= 1
+
+    await fetchUsers()
+  }
+  catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
@@ -158,7 +292,6 @@ const deleteUser = (id: number) => {
     >
       <VCardText>
         <VRow>
-          <!-- 👉 Select Role -->
           <VCol
             cols="12"
             sm="4"
@@ -169,17 +302,29 @@ const deleteUser = (id: number) => {
               placeholder="Enter keyword to search..."
               clearable
               clear-icon="mdi-close"
+              @keyup.enter="onSearch"
             />
           </VCol>
           <VCol 
             cols="12"
-            sm="4">
-            <VBtn
-              class="order-sm-2 order-1"
-              height="56"
-            >
-              Search
-            </VBtn>
+            sm="4"
+          >
+            <div class="d-flex gap-x-2">
+              <VBtn
+                height="56"
+                @click="onSearch"
+              >
+                Search
+              </VBtn>    
+              <VBtn
+                variant="outlined"
+                color="secondary"
+                height="56"
+                @click="onClearSearch"
+              >
+                Clear
+              </VBtn>          
+            </div>
           </VCol>
         </VRow>
       </VCardText>
@@ -189,7 +334,6 @@ const deleteUser = (id: number) => {
       <VCardText class="d-flex justify-end flex-wrap gap-4">
 
         <div class="d-flex gap-x-4 flex-wrap">
-          <!-- 👉 Add user button -->
           <VBtn
             class="order-sm-2 order-1"
             @click="isAddNewUserDrawerVisible = true"
@@ -199,7 +343,6 @@ const deleteUser = (id: number) => {
         </div>
       </VCardText>
 
-      <!-- SECTION datatable -->
       <VDataTableServer
         v-model:items-per-page="options.itemsPerPage"
         v-model:page="options.page"
@@ -231,7 +374,7 @@ const deleteUser = (id: number) => {
             <div class="d-flex flex-column">
               <h6 class="text-sm">
                 <RouterLink
-                  :to="{ name: 'apps-user-view-id', params: { id: item.raw.id } }"
+                  :to="{ name: '', params: { id: item.raw.id } }"
                   class="font-weight-medium user-list-name"
                 >
                   {{ item.raw.fullName }}
@@ -257,11 +400,6 @@ const deleteUser = (id: number) => {
             />
             <span class="text-capitalize">{{ item.raw.role }}</span>
           </div>
-        </template>
-
-        <!-- Plan -->
-        <template #item.plan="{ item }">
-          <span class="text-capitalize text-high-emphasis">{{ item.raw.currentPlan }}</span>
         </template>
 
         <!-- Status -->
@@ -404,7 +542,8 @@ const deleteUser = (id: number) => {
 
     <UserInfoEditDialog
       v-model:isDialogVisible="isUserInfoEditDialogVisible"
-      :user-data="selectedUser"
+      :user-data="editUserData"
+      @submit="updateUser"
     />
   </section>
 </template>

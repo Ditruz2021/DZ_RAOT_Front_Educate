@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { VForm } from 'vuetify/components/VForm'
 import { useGenerateImageVariant } from '@/@core/composable/useGenerateImageVariant'
 import type { LoginResponse } from '@/@fake-db/types'
 import { useAppAbility } from '@/plugins/casl/useAppAbility'
@@ -14,6 +13,7 @@ import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { emailValidator, requiredValidator } from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
 const isPasswordVisible = ref(false)
 
@@ -125,9 +125,9 @@ const onSubmit = () => {
             <p class="text-caption mb-2">
               Admin Email: <strong>admin@demo.com</strong> / Pass: <strong>admin</strong>
             </p>
-            <p class="text-caption mb-0">
+            <!-- <p class="text-caption mb-0">
               Client Email: <strong>client@demo.com</strong> / Pass: <strong>client</strong>
-            </p>
+            </p> -->
           </VAlert>
         </VCardText>
         <VCardText>

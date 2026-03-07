@@ -1,20 +1,26 @@
 <script setup lang="ts">
+const roleNameToIdMap: Record<string, number> = {
+  admin: 1,
+  author: 2,
+  editor: 3,
+  maintainer: 4,
+  subscriber: 5,
+  user: 5,
+}
+
 interface UserData {
   id: number | null
-  fullName: string
-  company: string
-  role: string
+  firstname: string
+  lastname: string
   username: string
-  country: string
-  contact: string
   email: string
-  currentPlan: string
-  status: string
-  avatar: string
-  taskDone: number | null
-  projectDone: number | null
-  taxId: string
-  language: string
+  isActive: boolean
+  roleId: number | null
+
+  // Backward-compatibility for old callers
+  fullName?: string
+  role?: string
+  status?: string
 }
 
 interface Props {
@@ -29,31 +35,37 @@ interface Emit {
 
 const props = withDefaults(defineProps<Props>(), {
   userData: () => ({
-    id: 0,
-    fullName: '',
-    company: '',
-    role: '',
+    id: null,
+    firstname: '',
+    lastname: '',
     username: '',
-    country: '',
-    contact: '',
     email: '',
-    currentPlan: '',
-    status: '',
-    avatar: '',
-    taskDone: null,
-    projectDone: null,
-    taxId: '',
-    language: '',
+    isActive: true,
+    roleId: null,
   }),
 })
 
 const emit = defineEmits<Emit>()
 
-const userData = ref<UserData>(structuredClone(toRaw(props.userData)))
-const isUseAsBillingAddress = ref(false)
+const normalizeUserData = (data: UserData): UserData => {
+  const fullName = (data.fullName || '').trim()
+  const [firstFromName = '', ...restName] = fullName.split(' ')
+
+  return {
+    id: data.id ?? null,
+    firstname: data.firstname || firstFromName,
+    lastname: data.lastname || restName.join(' ').trim(),
+    username: data.username || '',
+    email: data.email || '',
+    isActive: typeof data.isActive === 'boolean' ? data.isActive : (data.status || '').toLowerCase() === 'active',
+    roleId: data.roleId || roleNameToIdMap[(data.role || '').toLowerCase()] || 5,
+  }
+}
+
+const userData = ref<UserData>(normalizeUserData(structuredClone(toRaw(props.userData))))
 
 watch(props, () => {
-  userData.value = structuredClone(toRaw(props.userData))
+  userData.value = normalizeUserData(structuredClone(toRaw(props.userData)))
 })
 
 const onFormSubmit = () => {
@@ -90,9 +102,6 @@ const dialogVisibleUpdate = (val: boolean) => {
         <VCardTitle class="text-h5 mb-2">
           Edit User Information
         </VCardTitle>
-        <VCardSubtitle>
-          Updating user details will receive a privacy audit.
-        </VCardSubtitle>
       </VCardItem>
 
       <VCardText>
@@ -102,15 +111,27 @@ const dialogVisibleUpdate = (val: boolean) => {
           @submit.prevent="onFormSubmit"
         >
           <VRow>
-            <!-- 👉 Full Name -->
+            <!-- 👉 Firstname -->
             <VCol
               cols="12"
               md="6"
             >
               <VTextField
-                v-model="userData.fullName"
-                label="Full Name"
-                placeholder="John Doe"
+                v-model="userData.firstname"
+                label="Firstname"
+                placeholder="Somchai"
+              />
+            </VCol>
+
+            <!-- 👉 Lastname -->
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="userData.lastname"
+                label="Lastname"
+                placeholder="Jaidee"
               />
             </VCol>
 
@@ -122,88 +143,49 @@ const dialogVisibleUpdate = (val: boolean) => {
               <VTextField
                 v-model="userData.username"
                 label="Username"
-                placeholder="johndoe"
+                placeholder="somchai.j"
               />
             </VCol>
 
-            <!-- 👉 Billing Email -->
+            <!-- 👉 Email -->
             <VCol
               cols="12"
               md="6"
             >
               <VTextField
                 v-model="userData.email"
-                label="Billing Email"
-                placeholder="johndoe@email.com"
+                label="Email"
+                placeholder="somchai.j@gmail.com"
               />
             </VCol>
 
-            <!-- 👉 Status -->
+            <!-- 👉 Role ID -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField
-                v-model="userData.status"
-                label="Status"
-                placeholder="Active"
+              <VSelect
+                v-model="userData.roleId"
+                label="Role"
+                :items="[
+                  { title: 'Admin (1)', value: 1 },
+                  { title: 'Author (2)', value: 2 },
+                  { title: 'Editor (3)', value: 3 },
+                  { title: 'Maintainer (4)', value: 4 },
+                  { title: 'Subscriber (5)', value: 5 },
+                ]"
               />
             </VCol>
 
-            <!-- 👉 Tax Id -->
+            <!-- 👉 Is Active -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField
-                v-model="userData.taxId"
-                label="Tax Id"
-                placeholder="123456789"
-              />
-            </VCol>
-
-            <!-- 👉 Contact -->
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VTextField
-                v-model="userData.contact"
-                label="Contact"
-                placeholder="+1 9876543210"
-              />
-            </VCol>
-
-            <!-- 👉 Language -->
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VTextField
-                v-model="userData.language"
-                label="Language"
-                placeholder="English"
-              />
-            </VCol>
-
-            <!-- 👉 Country -->
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VTextField
-                v-model="userData.country"
-                label="Country"
-                placeholder="United States"
-              />
-            </VCol>
-
-            <!-- 👉 Switch -->
-            <VCol cols="12">
               <VSwitch
-                v-model="isUseAsBillingAddress"
+                v-model="userData.isActive"
                 density="compact"
-                label="Use as a billing address?"
+                label="Active"
               />
             </VCol>
 
