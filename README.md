@@ -1,27 +1,32 @@
-# 🛠️ Vue IT Workshop — ระบบจัดการผู้ใช้งาน
 
-> Workshop การสร้างระบบ User Management ด้วย **Vue 3 + TypeScript + Vuetify** แบบครบวงจร  
-> ตั้งแต่การ Setup โปรเจ็คจนถึงการเชื่อมต่อ REST API จริง
 
----
+# ---
 
-## 📋 สารบัญ
+**🛠️ Vue IT Workshop — ระบบจัดการผู้ใช้งาน**
 
-- [Tech Stack](#-tech-stack)
-- [โครงสร้างโปรเจ็ค](#-โครงสร้างโปรเจ็ค)
-- [ขั้นตอนที่ 1 — สร้างโปรเจ็คและติดตั้ง Library](#-ขั้นตอนที่-1--สร้างโปรเจ็คและติดตั้ง-library)
-- [ขั้นตอนที่ 2 — ตั้งค่า Config พื้นฐาน](#️-ขั้นตอนที่-2--ตั้งค่า-config-พื้นฐาน)
-- [ขั้นตอนที่ 3 — ประกอบส่วนกลาง (Main / Router / App)](#-ขั้นตอนที่-3--ประกอบส่วนกลาง-main--router--app)
-- [ขั้นตอนที่ 4 — สร้าง State Management (Pinia Store)](#-ขั้นตอนที่-4--สร้าง-state-management-pinia-store)
-- [ขั้นตอนที่ 5 — สร้าง UI Component (View)](#-ขั้นตอนที่-5--สร้าง-ui-component-view)
-- [ตั้งค่า Environment Variable](#-ตั้งค่า-environment-variable)
+Workshop การสร้างระบบ User Management ด้วย **Vue 3 \+ TypeScript \+ Vuetify** แบบครบวงจร
 
----
+ตั้งแต่การ Setup โปรเจกต์จนถึงการเชื่อมต่อ REST API จริง (GET, POST, PUT, DELETE)
 
-## 🚀 Tech Stack
+## ---
+
+**📋 สารบัญ**
+
+* [Tech Stack](https://www.google.com/search?q=%23-tech-stack)  
+* [โครงสร้างโปรเจกต์](https://www.google.com/search?q=%23-%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%81%E0%B8%95%E0%B9%8C)  
+* [ขั้นตอนที่ 1 — สร้างโปรเจกต์และติดตั้ง Library](https://www.google.com/search?q=%23-%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-1--%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%81%E0%B8%95%E0%B9%8C%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-library)  
+* [ขั้นตอนที่ 2 — ตั้งค่า Config พื้นฐาน](https://www.google.com/search?q=%23%EF%B8%8F-%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-2--%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%84%E0%B9%88%E0%B8%B2-config-%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%90%E0%B8%B2%E0%B8%99)  
+* [ขั้นตอนที่ 3 — ประกอบส่วนกลาง (Main / Router / App)](https://www.google.com/search?q=%23-%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-3--%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%AD%E0%B8%9A%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87-main--router--app)  
+* [ขั้นตอนที่ 4 — สร้าง State Management (Pinia Store)](https://www.google.com/search?q=%23-%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-4--%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87-state-management-pinia-store)  
+* [ขั้นตอนที่ 5 — สร้าง UI Component (View)](https://www.google.com/search?q=%23-%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-5--%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87-ui-component-view)  
+* [ตั้งค่า Environment Variable](https://www.google.com/search?q=%23-%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%84%E0%B9%88%E0%B8%B2-environment-variable)
+
+## ---
+
+**🚀 Tech Stack**
 
 | เทคโนโลยี | รายละเอียด |
-|---|---|
+| :---- | :---- |
 | **Vue 3** | Frontend Framework (Composition API) |
 | **TypeScript** | Type-safe JavaScript |
 | **Vite** | Build Tool ความเร็วสูง |
@@ -31,566 +36,352 @@
 | **Axios** | HTTP Client สำหรับเรียก API |
 | **@mdi/font** | Material Design Icons |
 
----
+## ---
 
-## 📁 โครงสร้างโปรเจ็ค
+**📁 โครงสร้างโปรเจกต์**
 
-```
-vue-it-workshop/
-├── src/
-│   ├── plugins/
-│   │   └── axios.ts          # ตั้งค่า Axios Instance
-│   ├── router/
-│   │   └── index.ts          # กำหนดเส้นทาง URL
-│   ├── store/
-│   │   └── user/
-│   │       ├── types.ts          # TypeScript Interface / Type
-│   │       ├── userMapper.ts     # แปลงข้อมูลจาก API
-│   │       └── useUserListStore.ts  # Pinia Store
-│   ├── views/
-│   │   └── UserView.vue      # หน้าจอหลักระบบจัดการผู้ใช้
-│   ├── App.vue
-│   └── main.ts
-├── .env
+Plaintext
+
+vue-it-workshop/  
+├── src/  
+│   ├── components/  
+│   │   └── UserTable.vue       \# Component ตารางแสดงข้อมูล  
+│   ├── plugins/  
+│   │   └── axios.ts            \# ตั้งค่า Axios Instance  
+│   ├── router/  
+│   │   └── index.ts            \# กำหนดเส้นทาง URL  
+│   ├── services/  
+│   │   └── userService.ts      \# API Endpoints & Types  
+│   ├── store/  
+│   │   └── userStore.ts        \# Pinia Store สำหรับจัดการ State  
+│   ├── views/  
+│   │   └── UserManagement.vue  \# หน้าจอหลักระบบจัดการผู้ใช้  
+│   ├── App.vue  
+│   ├── main.ts  
+│   └── env.d.ts                \# TypeScript Declaration  
+├── .env  
 └── vite.config.ts
-```
 
----
+## ---
 
-## 📦 ขั้นตอนที่ 1 — สร้างโปรเจ็คและติดตั้ง Library
+**📦 ขั้นตอนที่ 1 — สร้างโปรเจกต์และติดตั้ง Library**
 
-### 1.1 สร้างโปรเจ็ค Vue + TypeScript ด้วย Vite
+### **1.1 สร้างโปรเจกต์ Vue \+ TypeScript ด้วย Vite**
 
-```bash
-npm create vite@latest vue-it-workshop -- --template vue-ts
-```
+Bash
 
-> 💡 ถ้ามีคำถามระหว่างสร้างโปรเจ็ค ให้กด `Enter` หรือเลือก `No` สำหรับ Experimental features
+npm create vite@latest vue-it-workshop \-- \--template vue-ts
 
-### 1.2 เข้าไปในโฟลเดอร์โปรเจ็ค
+### **1.2 ติดตั้ง Library หลักทั้งหมด**
 
-```bash
-cd vue-it-workshop
-```
+Bash
 
-### 1.3 ติดตั้ง Package พื้นฐาน
+cd vue-it-workshop  
+npm install  
+npm install vue-router@4 pinia axios vuetify @mdi/font  
+npm install \-D sass
 
-```bash
-npm install
-```
+### **1.3 สร้างโครงสร้างโฟลเดอร์**
 
-### 1.4 ติดตั้ง Library หลักทั้งหมด
+Bash
 
-```bash
-npm install vue-router@4 pinia axios vuetify @mdi/font
-```
+\# สำหรับ Windows PowerShell  
+mkdir src/components, src/views, src/router, src/store, src/services, src/plugins
 
-### 1.5 สร้างโครงสร้างโฟลเดอร์
+## ---
 
-```bash
-# สำหรับ macOS / Linux
-mkdir -p src/views src/router src/store/user src/plugins
+**⚙️ ขั้นตอนที่ 2 — ตั้งค่า Config พื้นฐาน**
 
-# สำหรับ Windows PowerShell (ใช้ลูกน้ำคั่น)
-mkdir src/views, src/router, src/store, src/store/user, src/plugins
-```
+### **2.1 สร้างไฟล์ src/env.d.ts (แก้ Error Vuetify Styles)**
 
----
+TypeScript
 
-## ⚙️ ขั้นตอนที่ 2 — ตั้งค่า Config พื้นฐาน
+/// \<reference types="vite/client" /\>
 
-### 2.1 แก้ไขไฟล์ `vite.config.ts`
+declare module 'vuetify/styles' {  
+  const content: any;  
+  export default content;  
+}
 
-กำหนด Path Alias เพื่อให้ระบบรู้จัก `@` และ `@axios` แทน Path ยาว ๆ
+### **2.2 สร้างไฟล์ src/plugins/axios.ts**
 
-```ts
-// vite.config.ts
-import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+TypeScript
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@axios': fileURLToPath(new URL('./src/plugins/axios.ts', import.meta.url))
-    }
-  }
-})
-```
-
-### 2.2 สร้างไฟล์ `src/plugins/axios.ts`
-
-ตัวจัดการการเรียก API กลาง รองรับการดึงค่า Base URL จากไฟล์ `.env`
-
-```ts
-// src/plugins/axios.ts
 import axios from 'axios'
 
-const axiosIns = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 10000,
+const axiosIns \= axios.create({  
+  baseURL: import.meta.env.VITE\_API\_URL || 'http://localhost:3000',  
+  headers: { 'Content-Type': 'application/json' },  
 })
 
 export default axiosIns
-```
 
----
+### **2.3 สร้างไฟล์ src/services/userService.ts (Types & Service)**
 
-## 🔗 ขั้นตอนที่ 3 — ประกอบส่วนกลาง (Main / Router / App)
+TypeScript
 
-### 3.1 สร้างไฟล์ `src/router/index.ts`
+import axiosInstance from '../plugins/axios';
 
-กำหนด Route ของแอปพลิเคชัน
+export interface User { userId?: number; name: string; username: string; email: string; role: string; isActive: boolean; }  
+export interface UserPayload { firstname: string; lastname: string; username: string; email: string; isActive: boolean; roleId: number | null; }  
+export interface UserDetail { userId: number; firstname: string; lastname: string; username: string; email: string; isActive: boolean; roleId: number; roleName: string; }
 
-```ts
-// src/router/index.ts
-import { createRouter, createWebHistory } from 'vue-router'
-import UserView from '@/views/UserView.vue'
+export const userService \= {  
+  getUsers: () \=\> axiosInstance.get('/users'),  
+  getUserById: (id: number) \=\> axiosInstance.get\<UserDetail\>(\`/users/${id}\`),  
+  createUser: (payload: UserPayload) \=\> axiosInstance.post('/users', payload),  
+  updateUser: (id: number, payload: UserPayload) \=\> axiosInstance.put(\`/users/${id}\`, payload),  
+  deleteUser: (id: number) \=\> axiosInstance.delete(\`/users/${id}\`)  
+};
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    { path: '/', redirect: '/users' },
-    { path: '/users', name: 'Users', component: UserView }
-  ]
-})
+## ---
 
+**🔗 ขั้นตอนที่ 3 — ประกอบส่วนกลาง (Main / Router / App)**
+
+### **3.1 สร้างไฟล์ src/router/index.ts**
+
+TypeScript
+
+import { createRouter, createWebHistory } from 'vue-router'  
+import UserManagement from '../views/UserManagement.vue'
+
+const router \= createRouter({  
+  history: createWebHistory(),  
+  routes: \[{ path: '/', name: 'Users', component: UserManagement }\]  
+})  
 export default router
-```
 
-### 3.2 แก้ไขไฟล์ `src/main.ts`
+### **3.2 แก้ไขไฟล์ src/main.ts**
 
-จุดเริ่มต้นของแอป — เชื่อม Library ทั้งหมดเข้าด้วยกัน
+TypeScript
 
-```ts
-// src/main.ts
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+import { createApp } from 'vue'  
+import { createPinia } from 'pinia'  
+import App from './App.vue'  
 import router from './router'
 
-// Vuetify
-import 'vuetify/lib/styles/main.css'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-import '@mdi/font/css/materialdesignicons.css' 
+import 'vuetify/styles'  
+import { createVuetify } from 'vuetify'  
+import \* as components from 'vuetify/components'  
+import \* as directives from 'vuetify/directives'  
+import '@mdi/font/css/materialdesignicons.css'
 
-const vuetify = createVuetify({ components, directives })
-const app = createApp(App)
+const vuetify \= createVuetify({ components, directives })  
+const app \= createApp(App)
 
-app.use(createPinia())
-app.use(router)
-app.use(vuetify)
-app.mount('#app')
-```
+app.use(createPinia()).use(router).use(vuetify).mount('\#app')
 
-### 3.3 แก้ไขไฟล์ `src/App.vue`
+### **3.3 แก้ไขไฟล์ src/App.vue**
 
-Layout หลักของแอป
+Code snippet
 
-```vue
-<!-- src/App.vue -->
-<template>
-  <v-app>
-    <v-main class="bg-grey-lighten-4">
-      <router-view />
-    </v-main>
-  </v-app>
-</template>
+\<template\>  
+  \<v-app\>  
+    \<v-app-bar color="primary" dark elevation="2"\>  
+      \<v-toolbar-title\>IT Training Workshop\</v-toolbar-title\>  
+    \</v-app-bar\>  
+    \<v-main class="bg-grey-lighten-4"\>  
+      \<router-view /\>  
+    \</v-main\>  
+  \</v-app\>  
+\</template\>
 
-<style>
-html, body { font-family: 'Sarabun', sans-serif; }
-</style>
-```
+\<style\>  
+html, body { font-family: 'Sarabun', sans-serif; }  
+\</style\>
 
----
+## ---
 
-## 🗄️ ขั้นตอนที่ 4 — สร้าง State Management (Pinia Store)
+**🗄️ ขั้นตอนที่ 4 — สร้าง State Management (Pinia Store)**
 
-### 4.1 สร้างไฟล์ `src/store/user/types.ts`
+### **สร้างไฟล์ src/store/userStore.ts**
 
-กำหนด Interface และ Type ที่ใช้ทั่วทั้งระบบ
+TypeScript
 
-```ts
-// src/store/user/types.ts
-export interface CreateUserPayload {
-  firstname: string
-  lastname: string
-  username: string
-  email: string
-  isActive: boolean
-  roleId: number
-}
+import { defineStore } from 'pinia';  
+import { userService, type User, type UserPayload } from '../services/userService';
 
-export interface EditUserPayload extends CreateUserPayload {
-  id: number | null
-  roleName?: string
-}
+export const useUserStore \= defineStore('user', {  
+  state: () \=\> ({  
+    users: \[\] as User\[\],  
+    isLoading: false,  
+  }),  
+  actions: {  
+    async fetchUsers() {  
+      this.isLoading \= true;  
+      try {  
+        const res \= await userService.getUsers();  
+        this.users \= res.data.items;  
+      } finally { this.isLoading \= false; }  
+    },  
+    async fetchUserById(id: number) {  
+      const res \= await userService.getUserById(id);  
+      return res.data;  
+    },  
+    async addUser(payload: UserPayload) {  
+      await userService.createUser(payload);  
+      await this.fetchUsers();  
+    },  
+    async editUser(id: number, payload: UserPayload) {  
+      await userService.updateUser(id, payload);  
+      await this.fetchUsers();  
+    },  
+    async removeUser(id: number) {  
+      await userService.deleteUser(id);  
+      await this.fetchUsers();  
+    }  
+  }  
+});
 
-export type ApiUser = Partial<CreateUserPayload> & {
-  id?: number
-  userId?: number
-  fullName?: string
-  name?: string
-  role?: string
-  roleName?: string
-  status?: string
-  isActive?: boolean
-  currentPlan?: string
-  avatar?: string
-}
+## ---
 
-export interface UserProperties {
-  id: number
-  fullName: string
-  company: string
-  role: string
-  username: string
-  country: string
-  contact: string
-  email: string
-  currentPlan: string
-  status: string
-  avatar: string
-}
+**🖥️ ขั้นตอนที่ 5 — สร้าง UI Component (View)**
 
-export interface UserParams {
-  q?: string
-  options?: any
-}
-```
+### **5.1 สร้างไฟล์ src/components/UserTable.vue**
 
-### 4.2 สร้างไฟล์ `src/store/user/userMapper.ts`
+Code snippet
 
-ตัวแปลงข้อมูลจาก API ให้อยู่ในรูปแบบที่ UI ต้องการ
+\<template\>  
+  \<v-data-table :headers="headers" :items="users" :loading="isLoading" class="elevation-1 rounded-lg"\>  
+    \<template v-slot:item.isActive="{ item }"\>  
+      \<v-chip :color="item.isActive ? 'green' : 'red'" size="small"\>  
+        {{ item.isActive ? 'ใช้งาน' : 'ระงับ' }}  
+      \</v-chip\>  
+    \</template\>  
+    \<template v-slot:item.actions="{ item }"\>  
+      \<v-icon color="warning" class="mr-2" @click="$emit('edit', item)"\>mdi-pencil\</v-icon\>  
+      \<v-icon color="error" @click="$emit('delete', item.userId\!)"\>mdi-delete\</v-icon\>  
+    \</template\>  
+  \</v-data-table\>  
+\</template\>
 
-```ts
-// src/store/user/userMapper.ts
-import type { ApiUser, EditUserPayload, UserProperties } from './types'
+\<script setup lang="ts"\>  
+import type { User } from '../services/userService';  
+defineProps\<{ headers: any\[\]; users: User\[\]; isLoading: boolean }\>();  
+defineEmits\<{ (e: 'edit', item: User): void; (e: 'delete', id: number): void }\>();  
+\</script\>
 
-export const roleIdToNameMap: Record<number, string> = { 1: 'admin', 2: 'user' }
-export const roleNameToIdMap: Record<string, number> = { admin: 1, user: 2 }
+### **5.2 สร้างไฟล์ src/views/UserManagement.vue**
 
-const splitName = (fullName: string) => {
-  const [firstname = '', ...rest] = fullName.trim().split(' ')
-  return { firstname, lastname: rest.join(' ').trim() }
-}
+Code snippet
 
-export const mapApiUserToEditUserPayload = (user: ApiUser, fallbackId?: number): EditUserPayload => {
-  const fullName = user.name || user.fullName || ''
-  const nameParts = splitName(fullName)
-  const normalizedRoleName = (user.roleName || user.role || '').toLowerCase()
-  const roleId = user.roleId || roleNameToIdMap[normalizedRoleName] || 5
+\<template\>  
+  \<v-container\>  
+    \<v-row class="mb-4 align-center"\>  
+      \<v-col\>\<h2 class="page-title"\>จัดการผู้ใช้งาน\</h2\>\</v-col\>  
+      \<v-col class="text-right"\>  
+        \<v-btn color="primary" class="add-btn" elevation="3" prepend-icon="mdi-plus" @click="openDialog()"\>  
+          เพิ่มผู้ใช้งาน  
+        \</v-btn\>  
+      \</v-col\>  
+    \</v-row\>
 
-  return {
-    id: user.userId || user.id || fallbackId || null,
-    firstname: user.firstname || nameParts.firstname,
-    lastname: user.lastname || nameParts.lastname,
-    username: user.username || '',
-    email: user.email || '',
-    isActive: typeof user.isActive === 'boolean' ? user.isActive : user.status === 'active',
-    roleId,
-    roleName: user.roleName || roleIdToNameMap[roleId],
-  }
-}
+    \<UserTable   
+      :headers="headers" :users="userStore.users" :isLoading="userStore.isLoading"  
+      @edit="openDialog" @delete="deleteUser"   
+    /\>
 
-export const mapApiUserToUserProperties = (user: ApiUser, index: number): UserProperties => {
-  const firstName = user.firstname?.trim() || ''
-  const lastName = user.lastname?.trim() || ''
-  const fullName = user.name || user.fullName || `${firstName} ${lastName}`.trim() || user.username || 'Unknown'
-  const role = (user.role || user.roleName || '').toLowerCase() || roleIdToNameMap[user.roleId || 0] || 'subscriber'
-  const status = user.status || (typeof user.isActive === 'boolean' ? (user.isActive ? 'active' : 'inactive') : 'inactive')
+    \<v-dialog v-model="dialog" max-width="600px"\>  
+      \<v-card class="rounded-lg"\>  
+        \<v-card-title class="pa-4 bg-primary text-white"\>  
+          {{ isEdit ? 'แก้ไขผู้ใช้งาน' : 'เพิ่มผู้ใช้งานใหม่' }}  
+        \</v-card-title\>  
+        \<v-card-text class="pt-6"\>  
+          \<v-form\>  
+            \<v-row\>  
+              \<v-col cols="12" sm="6"\>\<v-text-field v-model="formData.firstname" label="ชื่อจริง" variant="outlined" density="comfortable" /\>\</v-col\>  
+              \<v-col cols="12" sm="6"\>\<v-text-field v-model="formData.lastname" label="นามสกุล" variant="outlined" density="comfortable" /\>\</v-col\>  
+              \<v-col cols="12"\>\<v-text-field v-model="formData.username" label="Username" variant="outlined" density="comfortable" :disabled="isEdit" /\>\</v-col\>  
+              \<v-col cols="12"\>\<v-text-field v-model="formData.email" label="Email" variant="outlined" density="comfortable" /\>\</v-col\>  
+              \<v-col cols="12" sm="6"\>  
+                \<v-select v-model="formData.roleId" :items="roleOptions" item-title="title" item-value="value" label="สิทธิ์ผู้ใช้งาน" variant="outlined" density="comfortable" /\>  
+              \</v-col\>  
+              \<v-col cols="12" sm="6"\>\<v-switch v-model="formData.isActive" label="สถานะการใช้งาน" color="success" inset /\>\</v-col\>  
+            \</v-row\>  
+          \</v-form\>  
+        \</v-card-text\>  
+        \<v-card-actions class="pa-4"\>  
+          \<v-spacer /\>  
+          \<v-btn color="grey" variant="text" @click="dialog \= false"\>ยกเลิก\</v-btn\>  
+          \<v-btn color="primary" variant="elevated" @click="saveUser"\>บันทึก\</v-btn\>  
+        \</v-card-actions\>  
+      \</v-card\>  
+    \</v-dialog\>  
+  \</v-container\>  
+\</template\>
 
-  return {
-    id: user.userId || user.id || index + 1,
-    fullName,
-    company: '-',
-    role,
-    username: user.username || '-',
-    country: '-',
-    contact: '-',
-    email: user.email || '-',
-    currentPlan: user.currentPlan || '-',
-    status,
-    avatar: user.avatar || '',
-  }
-}
-```
+\<script setup lang="ts"\>  
+import { ref, onMounted } from 'vue';  
+import { useUserStore } from '../store/userStore';  
+import type { User, UserPayload } from '../services/userService';  
+import UserTable from '../components/UserTable.vue';
 
-### 4.3 สร้างไฟล์ `src/store/user/useUserListStore.ts`
+const userStore \= useUserStore();  
+const headers \= \[  
+  { title: 'ชื่อ-นามสกุล', key: 'name' },  
+  { title: 'Username', key: 'username' },  
+  { title: 'อีเมล', key: 'email' },  
+  { title: 'สิทธิ์', key: 'role' },  
+  { title: 'สถานะ', key: 'isActive' },  
+  { title: 'จัดการ', key: 'actions', sortable: false },  
+\];
 
-Pinia Store สำหรับจัดการ CRUD ของผู้ใช้งาน
+const roleOptions \= \[{ title: 'User', value: 1 }, { title: 'Admin', value: 2 }\];  
+const dialog \= ref(false);  
+const isEdit \= ref(false);  
+let editId: number | null \= null;
 
-```ts
-// src/store/user/useUserListStore.ts
-import { defineStore } from 'pinia'
-import axios from '@axios'
-import type { AxiosResponse } from 'axios'
-import type { CreateUserPayload, ApiUser, UserParams } from './types'
-import { mapApiUserToEditUserPayload, mapApiUserToUserProperties } from './userMapper'
+const defaultForm: UserPayload \= { firstname: '', lastname: '', username: '', email: '', roleId: null, isActive: true };  
+const formData \= ref\<UserPayload\>({ ...defaultForm });
 
-const USERS_PATH = '/users'
+onMounted(() \=\> { userStore.fetchUsers(); });
 
-export const useUserListStore = defineStore('UserListStore', {
-  actions: {
-    fetchUsers(params: UserParams) {
-      const options = params.options as { page?: number; itemsPerPage?: number } || {}
-      return axios.get(USERS_PATH, {
-        params: {
-          Keyword: params.q || '',
-          Page: options.page || 1,
-          PageSize: options.itemsPerPage || 10,
-        },
-      }).then(response => {
-        const responseData = response.data || {}
-        const rawUsers = (responseData.items || responseData.users || responseData.data || responseData) as ApiUser[]
-        const users = Array.isArray(rawUsers)
-          ? rawUsers.map((user, index) => mapApiUserToUserProperties(user, index))
-          : []
+const openDialog \= async (item?: User) \=\> {  
+  if (item) {  
+    isEdit.value \= true;  
+    editId \= item.userId\!;  
+    try {  
+      const userData \= await userStore.fetchUserById(editId);  
+      formData.value \= {   
+        firstname: userData.firstname, lastname: userData.lastname,   
+        username: userData.username, email: userData.email,   
+        roleId: userData.roleId, isActive: userData.isActive   
+      };  
+      dialog.value \= true;   
+    } catch (error) { alert('ดึงข้อมูลล้มเหลว'); }  
+  } else {  
+    isEdit.value \= false; editId \= null; formData.value \= { ...defaultForm }; dialog.value \= true;  
+  }  
+};
 
-        return { ...response, data: { users, totalUsers: users.length } }
-      })
-    },
-    addUser(userData: CreateUserPayload) {
-      return axios.post(USERS_PATH, userData)
-    },
-    fetchUser(id: number) {
-      return new Promise<AxiosResponse>((resolve, reject) => {
-        axios.get(`${USERS_PATH}/${id}`).then(response => {
-          const rawUser = (response.data.item || response.data) as ApiUser
-          resolve({ ...response, data: { user: mapApiUserToEditUserPayload(rawUser || {}, id) } })
-        }).catch(reject)
-      })
-    },
-    updateUser(id: number, userData: CreateUserPayload) {
-      return axios.put(`${USERS_PATH}/${id}`, userData)
-    },
-    deleteUser(id: number) {
-      return axios.delete(`${USERS_PATH}/${id}`)
-    },
-  },
-})
-```
+const saveUser \= async () \=\> {  
+  if (isEdit.value && editId \!== null) await userStore.editUser(editId, formData.value);  
+  else await userStore.addUser(formData.value);  
+  dialog.value \= false;  
+};
 
----
+const deleteUser \= async (id: number) \=\> { if (confirm('ยืนยันการลบ?')) await userStore.removeUser(id); };  
+\</script\>
 
-## 🖥️ ขั้นตอนที่ 5 — สร้าง UI Component (View)
+\<style scoped\>  
+.page-title { font-weight: 800; font-size: 2rem; background: linear-gradient(45deg, \#1A237E, \#42A5F5); \-webkit-background-clip: text; \-webkit-text-fill-color: transparent; }  
+.add-btn { border-radius: 8px; font-weight: bold; }  
+\</style\>
 
-สร้างไฟล์ `src/views/UserView.vue` — หน้าจอหลักสำหรับจัดการข้อมูลผู้ใช้ รองรับการ **ค้นหา / เพิ่ม / แก้ไข / ลบ**
+## ---
 
-```vue
-<!-- src/views/UserView.vue -->
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useUserListStore } from '@/store/user/useUserListStore'
-import type { CreateUserPayload } from '@/store/user/types'
+**🌐 ตั้งค่า Environment Variable**
 
-const userListStore = useUserListStore()
+สร้างไฟล์ .env ที่ root ของโปรเจกต์
 
-const userList = ref<any[]>([])
-const isLoading = ref(false)
-const searchQuery = ref('')
-const isDialogVisible = ref(false)
-const isEditMode = ref(false)
-const editUserId = ref<number | null>(null)
-const formRef = ref()
+Code snippet
 
-const tableHeaders = [
-  { title: 'ID', key: 'id' },
-  { title: 'ชื่อ-นามสกุล', key: 'fullName' },
-  { title: 'ชื่อผู้ใช้งาน', key: 'username' },
-  { title: 'อีเมล', key: 'email' },
-  { title: 'สิทธิ์', key: 'role' },
-  { title: 'สถานะ', key: 'status' },
-  { title: 'จัดการ', key: 'actions', sortable: false },
-]
-
-const defaultForm: CreateUserPayload = {
-  firstname: '', lastname: '', username: '', email: '', roleId: 2, isActive: true,
-}
-const formData = ref<CreateUserPayload>({ ...defaultForm })
-
-const loadUsers = async () => {
-  isLoading.value = true
-  try {
-    const response = await userListStore.fetchUsers({ q: searchQuery.value })
-    userList.value = response.data.users
-  } catch (error) {
-    console.error('Error:', error)
-  } finally {
-    isLoading.value = false
-  }
-}
-
-const openAddDialog = () => {
-  isEditMode.value = false
-  formData.value = { ...defaultForm }
-  isDialogVisible.value = true
-}
-
-const openEditDialog = async (id: number) => {
-  isEditMode.value = true
-  editUserId.value = id
-  isDialogVisible.value = true
-  try {
-    const response = await userListStore.fetchUser(id)
-    const u = response.data.user
-    formData.value = {
-      firstname: u.firstname, lastname: u.lastname, username: u.username,
-      email: u.email, roleId: u.roleId, isActive: u.isActive,
-    }
-  } catch (error) {
-    console.error('Error fetching user:', error)
-  }
-}
-
-const saveUser = async () => {
-  const { valid } = await formRef.value?.validate() || { valid: false }
-  if (!valid) return
-  try {
-    if (isEditMode.value && editUserId.value) {
-      await userListStore.updateUser(editUserId.value, formData.value)
-    } else {
-      await userListStore.addUser(formData.value)
-    }
-    isDialogVisible.value = false
-    loadUsers()
-  } catch (error) {
-    console.error('Error saving user:', error)
-  }
-}
-
-const deleteUser = async (id: number) => {
-  if (confirm(`ยืนยันการลบผู้ใช้งานรหัส ${id} ใช่หรือไม่?`)) {
-    try {
-      await userListStore.deleteUser(id)
-      loadUsers()
-    } catch (error) {
-      console.error('Error deleting user:', error)
-    }
-  }
-}
-
-onMounted(() => loadUsers())
-</script>
-
-<template>
-  <div class="pa-6">
-    <v-card class="elevation-3 rounded-lg">
-      <v-card-title class="bg-red-darken-4 text-white pa-4 d-flex justify-space-between align-center">
-        <span><v-icon icon="mdi-account-group" class="mr-2" /> ระบบจัดการผู้ใช้งาน</span>
-        <v-btn color="white" variant="outlined" @click="openAddDialog">
-          <v-icon icon="mdi-plus" /> เพิ่มผู้ใช้
-        </v-btn>
-      </v-card-title>
-
-      <v-card-text class="pt-4">
-        <v-text-field
-          v-model="searchQuery"
-          label="ค้นหา..."
-          append-inner-icon="mdi-magnify"
-          variant="outlined"
-          density="compact"
-          class="mb-4"
-          style="max-width: 300px;"
-          @keyup.enter="loadUsers"
-        />
-
-        <v-data-table :headers="tableHeaders" :items="userList" :loading="isLoading" class="border rounded-lg">
-          <template v-slot:item.role="{ item }">
-            <v-chip :color="item.role === 'admin' ? 'red' : 'blue'" size="small">
-              {{ item.role.toUpperCase() }}
-            </v-chip>
-          </template>
-          <template v-slot:item.status="{ item }">
-            <v-chip :color="item.status === 'active' ? 'success' : 'grey'" size="small">
-              {{ item.status === 'active' ? 'ใช้งาน' : 'ระงับ' }}
-            </v-chip>
-          </template>
-          <template v-slot:item.actions="{ item }">
-            <v-btn icon="mdi-pencil" size="small" color="info" variant="text" @click="openEditDialog(item.id)" />
-            <v-btn icon="mdi-delete" size="small" color="error" variant="text" @click="deleteUser(item.id)" />
-          </template>
-        </v-data-table>
-      </v-card-text>
-    </v-card>
-
-    <!-- Dialog เพิ่ม / แก้ไข -->
-    <v-dialog v-model="isDialogVisible" max-width="600px">
-      <v-card>
-        <v-card-title class="bg-red-darken-4 text-white pa-4">
-          {{ isEditMode ? 'แก้ไขข้อมูลผู้ใช้' : 'เพิ่มผู้ใช้งานใหม่' }}
-        </v-card-title>
-        <v-card-text class="pt-6">
-          <v-form ref="formRef" @submit.prevent="saveUser">
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="formData.firstname" label="ชื่อจริง" variant="outlined" :rules="[v => !!v || 'บังคับกรอก']" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="formData.lastname" label="นามสกุล" variant="outlined" :rules="[v => !!v || 'บังคับกรอก']" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="formData.username" label="Username" variant="outlined" :disabled="isEditMode" :rules="[v => !!v || 'บังคับกรอก']" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field v-model="formData.email" label="อีเมล" type="email" variant="outlined" :rules="[v => !!v || 'บังคับกรอก']" />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-select
-                  v-model="formData.roleId"
-                  :items="[{ title: 'Admin', value: 1 }, { title: 'User', value: 2 }]"
-                  label="สิทธิ์การใช้งาน"
-                  variant="outlined"
-                />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-switch v-model="formData.isActive" :label="formData.isActive ? 'Active' : 'Inactive'" color="success" hide-details />
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-card-text>
-        <v-divider />
-        <v-card-actions class="pa-4">
-          <v-spacer />
-          <v-btn variant="text" @click="isDialogVisible = false">ยกเลิก</v-btn>
-          <v-btn color="red-darken-4" variant="elevated" @click="saveUser">บันทึก</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
-</template>
-```
+VITE\_API\_URL=http://79.108.225.69/user999/api/api
 
 ---
 
-## 🌐 ตั้งค่า Environment Variable
-
-สร้างไฟล์ `.env` ที่ root ของโปรเจ็ค แล้วกำหนด URL ของ API
-
-```env
-VITE_API_BASE_URL=http://79.108.225.69/user999/api/api
-```
-
-> ⚠️ **หมายเหตุ:** ไฟล์ `.env` ไม่ควร Commit ขึ้น Git โปรดเพิ่ม `.env` ใน `.gitignore`
+\<p align="center"\>Made with ❤️ for Vue.js IT Workshop\</p\>
 
 ---
 
-## ✅ สรุปขั้นตอนทั้งหมด
-
-```
-1. สร้างโปรเจ็ค Vue + TypeScript ด้วย Vite
-2. ติดตั้ง Library: Vue Router, Pinia, Axios, Vuetify, MDI Font
-3. ตั้งค่า vite.config.ts และ Axios Plugin
-4. สร้าง Router, เชื่อม Main.ts, ตั้งค่า App.vue
-5. สร้าง Pinia Store พร้อม Type และ Mapper
-6. สร้าง UserView.vue สำหรับแสดงผลและจัดการข้อมูล
-7. ตั้งค่า .env สำหรับ API Base URL
-```
-
----
-
-<p align="center">Made with ❤️ for Vue.js Workshop</p>
+หวังว่าไฟล์นี้จะช่วยให้ Workshop ของคุณดูเป็นมืออาชีพและนำไปใช้งานใน Git ได้ทันทีนะครับ\! มีจุดไหนอยากให้ปรับแก้อีกไหมครับ?
