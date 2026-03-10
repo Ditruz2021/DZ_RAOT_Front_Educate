@@ -73,14 +73,13 @@ npm create vite@latest vue-it-workshop -- --template vue-ts
 cd vue-it-workshop
 npm install
 npm install vue-router@4 pinia axios vuetify @mdi/font
-npm install -D sass
 ```
 
 ### 1.3 สร้างโครงสร้างโฟลเดอร์
 
 ```bash
 # สำหรับ Windows PowerShell
-mkdir src/components, src/views, src/router, src/store, src/services, src/plugins
+mkdir src/views, src/router, src/store, src/services, src/plugins
 ```
 
 ---
