@@ -238,7 +238,7 @@ export const useUserStore = defineStore('user', {
   <v-data-table :headers="headers" :items="users" :loading="isLoading" class="elevation-1 rounded-lg">
     <template v-slot:item.isActive="{ item }">
       <v-chip :color="item.isActive ? 'green' : 'red'" size="small">
-        {{ item.isActive ? 'ใช้งาน' : 'ระงับ' }}
+        {{ item.isActive ? 'ใช้งาน' : 'ไม่ใช้งาน' }}
       </v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
@@ -319,7 +319,7 @@ const headers = [
   { title: 'จัดการ', key: 'actions', sortable: false },
 ];
 
-const roleOptions = [{ title: 'User', value: 1 }, { title: 'Admin', value: 2 }];
+const roleOptions = [{ title: 'Admin', value: 1 }, { title: 'User', value: 2 }];
 const dialog = ref(false);
 const isEdit = ref(false);
 let editId: number | null = null;

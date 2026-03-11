@@ -51,7 +51,7 @@ import UserTable from '../components/UserTable.vue';
 const userStore = useUserStore();
 
 const headers = [{ title: 'ชื่อ-นามสกุล', key: 'name' }, { title: 'Username', key: 'username' }, { title: 'อีเมล', key: 'email' }, { title: 'สิทธิ์', key: 'role' }, { title: 'สถานะ', key: 'isActive' }, { title: 'จัดการ', key: 'actions', sortable: false }];
-const roleOptions = [{ title: 'User', value: 1 }, { title: 'Admin', value: 2 }];
+const roleOptions = [{ title: 'Admin', value: 1 }, { title: 'User', value: 2 }];
 
 const dialog = ref(false);
 const isEdit = ref(false);
