@@ -8,17 +8,7 @@
                 <v-btn color="primary" prepend-icon="mdi-plus" @click="openDialog()">เพิ่มผู้ใช้งาน</v-btn>
             </v-col>
         </v-row>
-        <v-data-table :headers="headers" :items="users" :loading="isLoading" class="elevetion-1 rounded-lg">
-            <template #item.roleId="{item}">
-                <span v-if="item.roleId == 1">Admin</span>
-                <span v-else-if="item.roleId == 2">User</span>
-            </template>
-            <template #item.isActive="{item}">
-                <v-chip :color="item.isActive ? 'green' : 'red'">
-                    {{ item.isActive ? 'ใช้งาน' : 'ไม่ใช้งาน' }}
-                </v-chip>
-            </template>
-        </v-data-table>
+        <UserTable :headers="headers" :users="userStore.users" :isLoading="isLoading" @edit="openDialog" @delete="deleteUser"/>
         <v-dialog v-model="dialog" max-width="600px">
             <v-card class="rounded-lg">
                 <v-card-title class="pa-4 bg-primary text-white">เพิ่มผู้ใช้งานใหม่</v-card-title>
@@ -26,10 +16,22 @@
                     <v-form>
                         <v-row>
                             <v-col cols="12" md="6">
-                                <v-text-field label="ชื่อ" required></v-text-field>
+                                <v-text-field label="ชื่อ" v-model="formData.firstname" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="นามสกุล" required></v-text-field>
+                                <v-text-field label="นามสกุล" v-model="formData.lastname" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Username" v-model="formData.username" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Email" v-model="formData.email" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-select label="บทบาท" v-model="formData.roleId" :items="roleList" item-title="name" item-value="id" required></v-select>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-switch label="สถานะใช้งาน" v-model="formData.isActive"></v-switch>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -45,25 +47,70 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import UserTable from '../components/UserTable.vue'
+import { useUserStore } from '../store/userStore';
+import type { User } from '../services/userService';
+import { onMounted } from 'vue';
 const dialog = ref(false)
+const isEdit = ref(false);
 const isLoading = ref(false)
-const users = ref([
-    { userId: 1 ,firstname:'สมชาย', lastname: 'ใจดี', email: 'somchai@example.com' , roleId: 1, isActive:true},
-    { userId: 2 ,firstname:'สมหญิง', lastname: 'ใจดี', email: 'somying@example.com' , roleId: 2, isActive:false}
-])
+
+const userStore = useUserStore()
+const formData = ref({
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    roleId: null,
+    isActive: true
+})
+
 const headers = [
-    { title: 'ชื่อ', value: 'firstname' },
-    { title: 'นามสกุล', value: 'lastname' },
+    { title: 'ชื่อ', value: 'name' },
     { title: 'อีเมล', value: 'email' },
-    { title: 'บทบาท', value: 'roleId' },
+    { title: 'บทบาท', value: 'role' },
     { title: 'สถานะ', value: 'isActive' },
+    { title: 'จัดการ', value: 'actions'}
 ]
-const openDialog = () => {
+const roleList = [
+    { id: 1, name: 'Admin' },
+    { id: 2, name: 'User' }
+]
+const openDialog = (item? :any) => {
+    if(item){
+         isEdit.value = true
+         formData.value = {
+            firstname: item.firstname,
+            lastname: item.lastname,
+            username: item.username,
+            email: item.email,
+            roleId: item.roleId,
+            isActive: item.isActive
+         }
+    } else {
+        isEdit.value = false
+        formData.value = {
+            firstname: '',
+            lastname: '',
+            username: '',
+            email: '',
+            roleId: null,
+            isActive: true
+        }
+    }
     dialog.value = true
 }
 
+onMounted(() => {
+    userStore.fetchUsers();
+});
+
 const saveUser = () => {
     alert('บันทึกผู้ใช้งาน')
+}
+
+const deleteUser = (id: number) => {
+    alert('ลบผู้ใช้งาน id: ' + id)
 }
 </script>
 
